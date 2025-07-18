@@ -8,7 +8,12 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libssh2-1-dev \
-    && docker-php-ext-install zip pdo_mysql \
+    libgd-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install zip pdo_mysql gd \
     && pecl install ssh2 \
     && docker-php-ext-enable ssh2 \
     && apt-get clean \
@@ -26,8 +31,8 @@ WORKDIR /var/www/html
 # Copy composer files first for better caching
 COPY composer.json composer.lock ./
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+# Install PHP dependencies with verbose output and ignore platform requirements
+RUN composer install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs -v
 
 # Copy application files
 COPY . .
