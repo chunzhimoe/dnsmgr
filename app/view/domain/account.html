@@ -162,7 +162,7 @@ $(document).ready(function(){
 			$("#ext_name_div").show();
 			$("#ext_name").html(dnsconfig[type].config.ext);
 		}
-	});
+	}).trigger('change');
 })
 function addframe(){
 	$("#modal-store").modal('show');
@@ -172,15 +172,14 @@ function addframe(){
 	$("#form-store input[name=ak]").val('');
 	$("#form-store input[name=sk]").val('');
 	$("#form-store input[name=ext]").val('');
+	$("#form-store input[name=remark]").val('');
 	$("#form-store input[name=proxy]").eq(0).prop('checked',true);
 	
-	// Show all fields by default and trigger change event to apply provider-specific rules
+	// Reset form fields visibility and trigger change event
 	$("#sk_name").parent().parent().show();
 	$("#form-store input[name=sk]").attr('required', 'required');
-	$("#ext_name_div").hide();
+	$("#ext_name_div").show();
 	$("select[name=type]").trigger('change');
-	$("#form-store input[name=remark]").val('');
-	$("select[name=type]").change();
 }
 function editframe(id){
 	var ii = layer.load(2);
