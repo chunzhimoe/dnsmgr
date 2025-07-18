@@ -162,6 +162,21 @@ class DnsHelper
             'page' => true,
             'add' => true,
         ],
+        'ns1' => [
+            'name' => 'IBM NS1 Connect',
+            'config' => [
+                'ak' => 'API Key',
+                'sk' => '',
+                'ext' => '',
+            ],
+            'remark' => 2,
+            'status' => true,
+            'redirect' => false,
+            'log' => true,
+            'weight' => true,
+            'page' => false,
+            'add' => true,
+        ],
     ];
 
     public static $line_name = [
@@ -176,6 +191,7 @@ class DnsHelper
         'cloudflare' => ['DEF' => '0'],
         'namesilo' => ['DEF' => 'default'],
         'powerdns' => ['DEF' => 'default'],
+        'ns1' => ['DEF' => 'default'],
     ];
 
     public static function getList()
