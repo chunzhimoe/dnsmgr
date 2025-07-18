@@ -165,9 +165,9 @@ class DnsHelper
         'ns1' => [
             'name' => 'IBM NS1 Connect',
             'config' => [
-                'ak' => 'API Key',
-                'sk' => '',
-                'ext' => '',
+                'ak' => 'API Key (从 NS1 控制台获取)',
+                'sk' => null,
+                'ext' => null,
             ],
             'remark' => 2,
             'status' => true,

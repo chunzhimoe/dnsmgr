@@ -144,8 +144,19 @@ $(document).ready(function(){
 		var type = $(this).val();
 		if(dnsconfig[type] == undefined) return;
 		$("#ak_name").html(dnsconfig[type].config.ak);
-		$("#sk_name").html(dnsconfig[type].config.sk);
-		if(dnsconfig[type].config.ext == undefined){
+		
+		// Handle SK field - hide if null/empty
+		if(dnsconfig[type].config.sk == null || dnsconfig[type].config.sk == ''){
+			$("#sk_name").parent().parent().hide();
+			$("#form-store input[name=sk]").removeAttr('required');
+		}else{
+			$("#sk_name").parent().parent().show();
+			$("#sk_name").html(dnsconfig[type].config.sk);
+			$("#form-store input[name=sk]").attr('required', 'required');
+		}
+		
+		// Handle extension field
+		if(dnsconfig[type].config.ext == null || dnsconfig[type].config.ext == undefined || dnsconfig[type].config.ext == ''){
 			$("#ext_name_div").hide();
 		}else{
 			$("#ext_name_div").show();
@@ -162,6 +173,12 @@ function addframe(){
 	$("#form-store input[name=sk]").val('');
 	$("#form-store input[name=ext]").val('');
 	$("#form-store input[name=proxy]").eq(0).prop('checked',true);
+	
+	// Show all fields by default and trigger change event to apply provider-specific rules
+	$("#sk_name").parent().parent().show();
+	$("#form-store input[name=sk]").attr('required', 'required');
+	$("#ext_name_div").hide();
+	$("select[name=type]").trigger('change');
 	$("#form-store input[name=remark]").val('');
 	$("select[name=type]").change();
 }
