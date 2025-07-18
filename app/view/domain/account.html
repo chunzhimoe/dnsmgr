@@ -164,6 +164,7 @@ $(document).ready(function(){
 		}
 	}).trigger('change');
 })
+
 function addframe(){
 	$("#modal-store").modal('show');
 	$("#modal-title").html("添加域名账户");
@@ -209,8 +210,19 @@ function editframe(id){
 	});
 }
 function save(){
-	if($("#form-store input[name=username]").val()==''){
-		layer.alert('请确保各项不能为空！');return false;
+	var ak = $("#form-store input[name=ak]").val();
+	var sk = $("#form-store input[name=sk]").val();
+	var type = $("#form-store select[name=type]").val();
+	
+	if(ak == ''){
+		layer.alert('请输入API Key！');return false;
+	}
+	
+	// Check if SK is required for this provider
+	if(dnsconfig[type] && dnsconfig[type].config.sk && dnsconfig[type].config.sk != null && dnsconfig[type].config.sk != ''){
+		if(sk == ''){
+			layer.alert('请输入Secret Key！');return false;
+		}
 	}
 	var act = $("#form-store input[name=action]").val();
 	var ii = layer.load(2);
